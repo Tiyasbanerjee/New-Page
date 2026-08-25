@@ -1,0 +1,40 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+#main{
+    height: 100%;
+    width: 100%;
+    
+    background-image: url(src/assets/main\ back.jpg);
+    background-size: cover;
+    background-position: center;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    scroll-behavior: smooth;
+
+    transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+#main::-webkit-scrollbar {
+  display: none;
+}
+.page{
+    height: 100%;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.338);
+}
+#page-1{
+   background-image: linear-gradient(to top, #0000006a 0%, #69beff31 100%);
+}
+#page-2{
+    background-image: linear-gradient(to bottom, #ffecd23b  0%, #ffecd200 100%);
+    backdrop-filter: blur(5px);
+}
