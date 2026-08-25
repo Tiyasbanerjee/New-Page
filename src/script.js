@@ -1,51 +1,68 @@
-const main = document.getElementById('main');
-const page2 = document.getElementById('page-2');
+const calendar = document.getElementById('calender');
 
-let accumulatedDelta = 0;
-let isLocked = false;
-let hasSlid = false;
+const weekdaysData = {
+  1: "sun.png",
+  2: "moon.png",
+  3: "star.png",
+  4: "wet.png",
+  5: "thus.png",
+  6: "fry.png",
+  7: "sat.png" 
+};
 
-// Threshold = 20% of the viewport height
-const getThreshold = () => window.innerHeight * 0.2;
+const FirstDayOfTheMonth = () => {
+  const now = new Date();
+  const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+  return firstDay.getDay()+1;
+}
 
-window.addEventListener('wheel', (e) => {
-  // Prevent normal browser scrolling
-  e.preventDefault();
+const MounthDays = () => {
+  const now = new Date();
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  return lastDay.getDate();
+}
 
-  if (isLocked) return;
 
-  // Track downward scrolling intent
-  if (e.deltaY > 0 && !hasSlid) {
-    accumulatedDelta += e.deltaY;
+for(let row =1; row<=7; row++){
+  // Create a box for each day of the week
+  const box = document.createElement('div');
 
-    // Trigger slide once the threshold (20%) is met
-    if (accumulatedDelta >= getThreshold()) {
-      isLocked = true;
-      hasSlid = true;
+  box.classList.add('week-days');
+  box.style.backgroundImage = `url(${weekdaysData[row]})`;
 
-      // Slide the entire #main up by 1 full screen (100vh)
-      main.style.transform = 'translateY(-100vh)';
+  calendar.appendChild(box);
 
-      // Re-enable interactions after the slide transition completes (1000ms)
-      setTimeout(() => {
-        isLocked = false;
-      }, 1000);
-    }
-  } 
-  // Allow sliding back up to page-1 when scrolling upwards on page-2
-  else if (e.deltaY < 0 && hasSlid) {
-    accumulatedDelta += e.deltaY;
+  let CellBoxCol = 0;
 
-    if (accumulatedDelta <= 0) {
-      isLocked = true;
-      hasSlid = false;
-      accumulatedDelta = 0;
+  for(let col=0; col<=5; col++){
+    CellBoxCol = row + col * 7;
 
-      main.style.transform = 'translateY(0)';
+    // Create a box for each day
 
-      setTimeout(() => {
-        isLocked = false;
-      }, 1000);
-    }
+    const cellBox = document.createElement('div');
+    cellBox.classList.add('cell');
+    cellBox.id = `cell-num-${CellBoxCol}`;
+    cellBox.textContent = CellBoxCol;
+    calendar.appendChild(cellBox);
+
+    
   }
-}, { passive: false });
+}
+
+//empty them
+for(let cellNum = 1; cellNum <= 42; cellNum++){
+  const cell = document.getElementById(`cell-num-${cellNum}`);
+  cell.textContent = '';
+};
+
+//calculate the range
+let date = 1;
+let firstday = FirstDayOfTheMonth();
+let totalDays = MounthDays();
+let lastday = totalDays + firstday-1;
+// now fill them
+for(let cell=firstday; cell<=lastday; cell++){
+  const cellElement = document.getElementById(`cell-num-${cell}`);
+  cellElement.textContent = date;
+  date++;
+}
