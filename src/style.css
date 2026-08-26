@@ -63,20 +63,25 @@ body{
     border: 1px solid rgba(255, 255, 255, 0.633);
     border-radius: 10px 10px 0 0;
     padding: 10px;
-    gap: 10px;
+    gap: 40px;
     box-shadow: 
                 0 0 10px rgba(255, 203, 203, 0.338) ,
                 inset 0 0 5px rgba(255, 255, 255, 0.443);
 
     display: flex;
-    align-items:center;
-    justify-content: center;
     flex-direction: column;
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+#news-box::-webkit-scrollbar {
+  display: none;
 }
 
 #weather-box{
@@ -124,4 +129,142 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+#page1-holder{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#search-engines-holder{
+    backdrop-filter: blur(1px);
+
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+}
+#appANDclockHolder{
+    height: 100%;
+    width: 40%;
+
+
+    display: flex;
+    flex-direction: column;
+}
+.search-engines {
+    height: 12%;
+    
+    max-width: 1000px;
+    width: 100%;
+    min-width: 700px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    flex-direction: row;
+    gap: 5px;
+    padding: 0.5rem;
+}
+
+.search-icons {
+    max-width: 30%;
+    max-height: 40%;
+    border-radius: 50%;
+    border: 2px solid rgb(47, 130, 255);
+}
+
+.search-bar {
+    height: 50%;
+    width: 70%;
+    text-align: center;
+    background-color: rgba(125, 251, 255, 0.877);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgb(255, 191, 81);
+    
+    
+    border-radius: 2rem;
+    padding:0.7rem;
+    color: #000000;
+    font-weight:bolder;
+    resize: none; 
+    outline: none;
+    overflow-y: hidden;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+}
+
+
+#clock-holder{
+
+    height: 40%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-holder{
+
+    height: 60%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#clock{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 5rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(203, 255, 98, 0.834);
+    text-decoration:underline;
+    text-decoration-color: #ff3bd8b0;
+    text-decoration-thickness: 2px;
+}
+
+#colon {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%{
+        color: rgb(255, 0, 0);
+    }
+    25% {
+        color: rgba(255, 0, 0, 0.308);
+    }
+    50% {
+        color: rgba(255, 0, 0, 0.488);
+    }
+    100% {
+        color: transparent;
+    }
+}
+
+
+
+.news-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.453);
+    border-radius: 12px;
+    padding: 0.5rem;
+    color: #fff;
+    font-family: sans-serif;
+    min-height: 150px;
+
+    text-align: center;
+}
+
+.news-card a {
+    color: #ff8c00;
+    text-decoration: none;
 }
