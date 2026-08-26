@@ -66,3 +66,20 @@ for(let cell=firstday; cell<=lastday; cell++){
   cellElement.textContent = date;
   date++;
 }
+
+
+
+// Nasa image part---
+
+const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
+
+fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
+
+.then(response => response.json())
+.then(data=>{
+  const mediaType = data.media_type;
+  if(mediaType === 'image'){
+    const NewsBox = document.getElementById('news-box');
+    NewsBox.style.backgroundImage = `url(${data.url})`;
+  }
+})
