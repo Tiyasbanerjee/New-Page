@@ -1,0 +1,1 @@
+window.location.replace("https://tiyasbanerjee.github.io/New-Page/");

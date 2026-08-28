@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "New Tab",
+  "version": "1.0",
+  "description": "Redirects every new tab to https://tiyasbanerjee.github.io/New-Page/.",
+  "chrome_url_overrides": {
+    "newtab": "redirect.html"
+  }
+}
