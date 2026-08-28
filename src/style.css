@@ -259,7 +259,7 @@ body{
     padding: 0.5rem;
     color: #fff;
     font-family: sans-serif;
-    min-height: 100px;
+    height: auto;
 
     text-align: center;
 }
