@@ -15,6 +15,12 @@ this 'new tab' offers you,,
 </ul>
 
 ---
+<h3>How to use this as your default new tab page.</h3>
+you can you this page as your default new tab, to use this ,
+dowmload the folder of this project, 'Extention'.
+turn on developer mode in extentions , and load this folder. now you are ready to go.
+
+---
 
 you can clone it into your device and do experiments with it, 
 
