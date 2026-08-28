@@ -146,6 +146,8 @@ async function loadNews(){
         const description = item.description;
       
         SaveLocalStorage(newsnumber, JSON.stringify({ title, link, description }));
+        
+        showNews();
       }) 
   }catch (error) {
     console.error(`Error fetching news from ${feedUrl}:`, error);
@@ -162,7 +164,6 @@ function cheakDB(){
     localStorage.clear();
     localStorage.setItem('Date', String(date));
     loadNews();
-    showNews();
   }
   else{
     showNews();
