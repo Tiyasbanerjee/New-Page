@@ -69,23 +69,6 @@ for(let cell=firstday; cell<=lastday; cell++){
 
 
 
-// Nasa image part---
-
-const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
-
-fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
-
-.then(response => response.json())
-.then(data=>{
-  const mediaType = data.media_type;
-  if(mediaType === 'image'){
-    const NewsBox = document.getElementById('news-box');
-    NewsBox.style.backgroundImage = `url(${data.url})`;
-  }
-})
-
-
-
 
 // clock logic-->
 
@@ -106,42 +89,56 @@ setInterval(clock, 1000);
 
 // news functions
 
-const FEEDS = [
-    'https://news.mit.edu/rss/feed',
-    'https://news.mit.edu/rss/topic/science',
-    'https://news.mit.edu/rss/topic/technology',
-    'https://news.mit.edu/rss/topic/artificial-intelligence2'
-];
-
 // defining functions
 
-function hash_news(feedUrl) {
-  let hash = 0;
-  for(let i=0; i<feedUrl.length; i++){
-    const char = feedUrl.charCodeAt(i);
-    hash = (hash<<5)-hash + char;
-    hash |= 0; 
-  }
-  return Math.abs(hash);
-}
-
-function CheakLocalStorage(hash){
-  const output = localStorage.getItem(hash);
+function CheakLocalStorage(key){
+  const output = localStorage.getItem(key);
   return output !== null;
 }
-function FetchLocalStorage(hash){
-  const data = localStorage.getItem(hash);
+function FetchLocalStorage(key){
+  const data = localStorage.getItem(key);
   return data;
 }
-function SaveLocalStorage(hash, data){
-  localStorage.setItem(hash, data);
+function SaveLocalStorage(key, data){
+  localStorage.setItem(key, data);
 }
 
-function loadNews(){
+async function loadNews(){
+  let newsnumber = 0;
+    
+    const feedUrl = 'https://news.mit.edu/rss/feed' ;
+    
+    let rssUrl = encodeURIComponent(feedUrl);
+    let apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
+    
+    try {
 
+        console.log(`Fetching news from ${feedUrl}...`);
 
+        let response = await fetch(apiUrl);
+        let data = await response.json();
+        
+        if (data.status === 'ok') {
+          console.log(`Successfully fetched news from ${feedUrl}.`);
+          }
 
-}
+        data.items.forEach((item) => {
+        
+          newsnumber++;
+
+        const title = item.title;
+        const link = item.link;
+        const description = item.description;
+      
+        SaveLocalStorage(newsnumber, JSON.stringify({ title, link, description }));
+      }) 
+  }catch (error) {
+    console.error(`Error fetching news from ${feedUrl}:`, error);
+  }
+
+  SaveLocalStorage('newsnumber', newsnumber);
+
+};
 
 function cheakDB(){
   const today = new Date();
@@ -151,5 +148,70 @@ function cheakDB(){
     localStorage.setItem('Date', String(date));
     loadNews();
   }
-  return 1;
+}
+
+cheakDB();
+
+// save the url of nasa pic and fetch only when needed
+
+if(CheakLocalStorage('nasa_pic_url')){
+  const NewsBox = document.getElementById('news-box');
+  NewsBox.style.backgroundImage = `url(${FetchLocalStorage('nasa_pic_url')})`;
+}else{
+  const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
+
+  fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
+
+  .then(response => response.json())
+  .then(data=>{
+  const mediaType = data.media_type;
+  if(mediaType === 'image'){
+  const NewsBox = document.getElementById('news-box');
+  NewsBox.style.backgroundImage = `url(${data.url})`;
+  SaveLocalStorage('nasa_pic_url', data.url);
+  }
+
+})
+}
+
+
+
+// config the shearch engines
+
+const shearchBars = document.querySelectorAll('.search-bar');
+
+const searchEngines = {
+  google: 'https://www.google.com/search?q=',
+  brave: 'https://search.brave.com/search?q=',
+  googleAi: 'https://www.google.com/search?q=',
+  duckduckgo: 'https://duckduckgo.com/?q=',
+  bing: 'https://www.bing.com/search?q=',
+  yahoo: 'https://search.yahoo.com/search?p=',
+  Perplexity: 'https://www.perplexity.ai/search?q=',
+  youtube: 'https://www.youtube.com/results?search_query='
+}
+
+shearchBars.forEach((bar) => {
+  bar.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      const query = bar.value;
+      const searchEngine = bar.id;
+      window.location.href = `${searchEngines[searchEngine]}${encodeURIComponent(query)}`;
+      bar.value = '';
+    }
+  });
+});
+
+// showing news.
+const newsBox = document.getElementById('news-box');
+for(let i=1; i<=Number(FetchLocalStorage('newsnumber')); i++){
+  const newsData = JSON.parse(FetchLocalStorage(i));
+
+  newsBox.innerHTML += `<div class="news-card">
+    <h3>${newsData.title}</h3>
+    <p>${newsData.description}</p>
+    <a href="${newsData.link}" target="_self" rel="noopener noreferrer">Read more</a>
+  </div>`;
+
 }

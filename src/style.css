@@ -63,7 +63,7 @@ body{
     border: 1px solid rgba(255, 255, 255, 0.633);
     border-radius: 10px 10px 0 0;
     padding: 10px;
-    gap: 40px;
+    gap: 60px;
     box-shadow: 
                 0 0 10px rgba(255, 203, 203, 0.338) ,
                 inset 0 0 5px rgba(255, 255, 255, 0.443);
@@ -259,7 +259,7 @@ body{
     padding: 0.5rem;
     color: #fff;
     font-family: sans-serif;
-    min-height: 150px;
+    min-height: 100px;
 
     text-align: center;
 }
@@ -267,4 +267,11 @@ body{
 .news-card a {
     color: #ff8c00;
     text-decoration: none;
+}
+.news-card:hover {
+    box-shadow: 0 0 3px rgb(255, 140, 0);
+    scale: 0.99;
+}
+.news-card h3{
+    color: #c6ffce;
 }
