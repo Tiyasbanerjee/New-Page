@@ -103,6 +103,21 @@ function SaveLocalStorage(key, data){
   localStorage.setItem(key, data);
 }
 
+function showNews(){
+  // showing news.
+  const newsBox = document.getElementById('news-box');
+  for(let i=1; i<=Number(FetchLocalStorage('newsnumber')); i++){
+    const newsData = JSON.parse(FetchLocalStorage(i));
+
+    newsBox.innerHTML += `<div class="news-card">
+      <h3>${newsData.title}</h3>
+      <p>${newsData.description}</p>
+      <a href="${newsData.link}" target="_self" rel="noopener noreferrer">Read more</a>
+    </div>`;
+
+  }
+}
+
 async function loadNews(){
   let newsnumber = 0;
     
@@ -137,6 +152,7 @@ async function loadNews(){
   }
 
   SaveLocalStorage('newsnumber', newsnumber);
+  showNews();
 
 };
 
@@ -202,16 +218,3 @@ shearchBars.forEach((bar) => {
     }
   });
 });
-
-// showing news.
-const newsBox = document.getElementById('news-box');
-for(let i=1; i<=Number(FetchLocalStorage('newsnumber')); i++){
-  const newsData = JSON.parse(FetchLocalStorage(i));
-
-  newsBox.innerHTML += `<div class="news-card">
-    <h3>${newsData.title}</h3>
-    <p>${newsData.description}</p>
-    <a href="${newsData.link}" target="_self" rel="noopener noreferrer">Read more</a>
-  </div>`;
-
-}
