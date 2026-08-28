@@ -1,8 +1,8 @@
-# New Page
+# <a href="https://tiyasbanerjee.github.io/New-Page/">New Page</a>
 
 i often used 'new tab' extentions which gave option to choose one search engine at a time, you can change it , but its not too handy,,,
 
-and also i did not found any 'new tab' extention wich came featured with a calender. 
+and also i did not found any 'new tab' extension which came with a calendar. 
 
 ---
 this 'new tab' offers you,,
@@ -16,7 +16,7 @@ this 'new tab' offers you,,
 
 ---
 
-you can clone it into your device and do expriments with it, 
+you can clone it into your device and do experiments with it, 
 
 `
 git clone https://github.com/Tiyasbanerjee/New-Page.git
