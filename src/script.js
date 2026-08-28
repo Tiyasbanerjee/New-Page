@@ -152,7 +152,6 @@ async function loadNews(){
   }
 
   SaveLocalStorage('newsnumber', newsnumber);
-  showNews();
 
 };
 
@@ -163,6 +162,10 @@ function cheakDB(){
     localStorage.clear();
     localStorage.setItem('Date', String(date));
     loadNews();
+    showNews();
+  }
+  else{
+    showNews();
   }
 }
 
