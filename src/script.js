@@ -147,13 +147,14 @@ async function loadNews(){
       
         SaveLocalStorage(newsnumber, JSON.stringify({ title, link, description }));
         
-        showNews();
       }) 
   }catch (error) {
     console.error(`Error fetching news from ${feedUrl}:`, error);
   }
 
   SaveLocalStorage('newsnumber', newsnumber);
+
+  showNews();
 
 };
 
