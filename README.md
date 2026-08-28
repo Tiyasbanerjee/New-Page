@@ -16,4 +16,21 @@ this 'new tab' offers you,,
 
 ---
 
-you can clone it into your device
+you can clone it into your device and do expriments with it, 
+
+`
+git clone https://github.com/Tiyasbanerjee/New-Page.git
+`
+
+---
+the file structure is, 
+
+* there is index.html in root of this project, 
+* and you can find the script and style.css inside /src
+* the /public contains the image resources.
+
+---
+
+you can spot bugs and contribute to make it better.
+
+<b><i>Thank Uuuu</i></b>
